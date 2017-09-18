@@ -68,7 +68,7 @@ def train(input_variable, target_variable,
     return loss.data[0] / target_len
 
 
-def train_iters(encoder, decoder, data_pairs):
+def train_iters(encoder, decoder, data_pairs, loss_calc_interval):
     sum_loss = 0
     losses = []
 
@@ -91,9 +91,9 @@ def train_iters(encoder, decoder, data_pairs):
         )
         sum_loss = sum_loss + loss
 
-        if i % 100 == 0:
-            print('trained: %d (%d%%) - loss: %.4f' % (i, i*100/len(data_pairs), sum_loss/20))
-            losses.append(sum_loss/20)
+        if i % loss_calc_interval == 0:
+            print('trained: %d (%d%%) - loss: %.4f' % (i, i*100/len(data_pairs), sum_loss/loss_calc_interval))
+            losses.append(sum_loss/loss_calc_interval)
             sum_loss = 0
 
         if i % 5000 == 0 and i != 0:

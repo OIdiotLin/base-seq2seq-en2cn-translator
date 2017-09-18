@@ -3,6 +3,8 @@ import re
 import torch
 from torch.autograd import Variable
 
+from seq2seq import use_cuda
+
 
 class Tokenizer:
     def __init__(self):
@@ -76,8 +78,15 @@ def get_dataset():
             src_tokens.append(src_lang.word2token['<EOS>'])
             tar_tokens.append(tar_lang.word2token['<EOS>'])
 
-            src.append(Variable(torch.LongTensor(src_tokens)).view(-1, 1))
-            tar.append(Variable(torch.LongTensor(tar_tokens)).view(-1, 1))
+            src_variable = Variable(torch.LongTensor(src_tokens)).view(-1, 1)
+            tar_variable = Variable(torch.LongTensor(tar_tokens)).view(-1, 1)
+
+            if use_cuda:
+                src_variable = src_variable.cuda()
+                tar_variable = tar_variable.cuda()
+
+            src.append(src_variable)
+            tar.append(tar_variable)
 
     return src, tar
 
