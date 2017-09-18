@@ -29,6 +29,7 @@ if __name__ == '__main__':
     train_iters(
         encoder=encoder,
         decoder=decoder,
-        data_pairs=train_pairs
+        data_pairs=train_pairs,
+        loss_calc_interval=100
     )
 
