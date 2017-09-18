@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from torch.autograd import Variable
 import seq2seq.data as data
+from seq2seq import use_cuda
 from seq2seq.data import src_lang, tar_lang, prepare
 from seq2seq.models import EncoderRNN, DecoderRNN
 from seq2seq.train import train_iters
@@ -21,6 +22,9 @@ if __name__ == '__main__':
         n_layers=1,
         dropout_p=0.1
     )
+    if use_cuda:
+        encoder = encoder.cuda()
+        decoder = decoder.cuda()
 
     train_iters(
         encoder=encoder,
