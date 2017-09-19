@@ -31,7 +31,7 @@ class EncoderRNN(nn.Module):
 
 
 class DecoderRNN(nn.Module):
-    def __init__(self, hidden_size, output_size, n_layers=1, dropout_p=0.1, maxlen=25):
+    def __init__(self, hidden_size, output_size, n_layers=1, dropout_p=0.1, maxlen=35):
         super(DecoderRNN, self).__init__()
         self.hidden_size = hidden_size
         self.output_size = output_size

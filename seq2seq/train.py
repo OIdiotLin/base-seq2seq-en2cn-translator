@@ -17,7 +17,7 @@ import matplotlib.animation as anim
 def train(input_variable, target_variable,
           encoder, decoder,
           encoder_optim, decoder_optim,
-          criterion, max_len=25):
+          criterion, max_len=35):
     encoder_hidden = encoder.init_hidden()
 
     encoder_optim.zero_grad()
@@ -72,6 +72,11 @@ def train_iters(encoder, decoder, data_pairs, loss_calc_interval):
     sum_loss = 0
     losses = []
 
+    plt.axis([0, 100, 0, 8])
+    plt.ion()
+
+    x_, y_ = [], []
+
     print('There are totally %d pairs of data.' % len(data_pairs))
     print('********* Start Training *********')
 
@@ -94,15 +99,17 @@ def train_iters(encoder, decoder, data_pairs, loss_calc_interval):
         if i % loss_calc_interval == 0:
             print('trained: %d (%d%%) - loss: %.4f' % (i, i*100/len(data_pairs), sum_loss/loss_calc_interval))
             losses.append(sum_loss/loss_calc_interval)
+
+            x_.append(i*100/len(data_pairs))
+            y_.append(sum_loss/loss_calc_interval)
+
+            plt.clf()
+            plt.plot(x_, y_, 'k', lw=2)
+            plt.pause(0.05)
+
             sum_loss = 0
 
         if i % 5000 == 0 and i != 0:
             torch.save(encoder, 'encoder-%d%%.pkl' % (i*100 / len(data_pairs)))
             torch.save(decoder, 'decoder-%d%%.pkl' % (i*100 / len(data_pairs)))
-
-    plt.figure()
-    fig, ax = plt.subplot()
-    loc = ticker.MultipleLocator(base=0.2)
-    ax.yaxis.set_major_locator(loc)
-    plt.plot(losses)
-
+    plt.savefig('loss.png')

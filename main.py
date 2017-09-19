@@ -7,7 +7,7 @@ from seq2seq.data import src_lang, tar_lang, prepare
 from seq2seq.models import EncoderRNN, DecoderRNN
 from seq2seq.train import train_iters
 
-HIDDEN_SIZE = 256
+HIDDEN_SIZE = 128
 
 if __name__ == '__main__':
     train_pairs = prepare()
@@ -30,6 +30,6 @@ if __name__ == '__main__':
         encoder=encoder,
         decoder=decoder,
         data_pairs=train_pairs,
-        loss_calc_interval=100
+        loss_calc_interval=20
     )
 

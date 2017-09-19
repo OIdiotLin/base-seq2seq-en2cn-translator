@@ -45,10 +45,10 @@ class Language:
 src_lang = Language('english')
 tar_lang = Language('french')
 
+src_lang.add_word('<SOS>')
 src_lang.add_word('<EOS>')
-src_lang.add_word('<PAD>')
+tar_lang.add_word('<SOS>')
 tar_lang.add_word('<EOS>')
-tar_lang.add_word('<PAD>')
 
 
 def get_dataset():
