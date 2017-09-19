@@ -12,7 +12,7 @@ class Tokenizer:
 
     @staticmethod
     def parse(s, lang):
-        if lang == 'english':
+        if lang == 'english' or lang == 'french':
             s = s.lower()
             s = re.sub(r"([.!?])", r" \1", s).split(' ')
         elif lang == 'chinese':
@@ -43,7 +43,7 @@ class Language:
 
 
 src_lang = Language('english')
-tar_lang = Language('chinese')
+tar_lang = Language('french')
 
 src_lang.add_word('<EOS>')
 src_lang.add_word('<PAD>')

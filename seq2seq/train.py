@@ -17,7 +17,7 @@ import matplotlib.animation as anim
 def train(input_variable, target_variable,
           encoder, decoder,
           encoder_optim, decoder_optim,
-          criterion, max_len=15):
+          criterion, max_len=25):
     encoder_hidden = encoder.init_hidden()
 
     encoder_optim.zero_grad()
